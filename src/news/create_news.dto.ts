@@ -1,5 +1,5 @@
 import { IsArray, IsNotEmpty, IsString } from 'class-validator';
-import { News } from 'src/schemas/news.schema';
+import { News } from '../schemas/news.schema';
 
 export class CreateNewsDto extends News {
   @IsString()

@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 import { NewsTag } from './news_tag.schema';
-import { INews } from 'src/types';
+import { INews } from '../types';
 
 export type NewsDocument = HydratedDocument<News>;
 

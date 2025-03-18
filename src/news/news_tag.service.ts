@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { NewsTag } from 'src/schemas/news_tag.schema';
+import { NewsTag } from '../schemas/news_tag.schema';
 import { CreateNewsTagDto } from './create_news_tag.dto';
 
 @Injectable()

@@ -1,9 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { News } from 'src/schemas/news.schema';
+import { News } from '../schemas/news.schema';
 import { CreateNewsDto } from './create_news.dto';
-import { NewsTag } from 'src/schemas/news_tag.schema';
+import { NewsTag } from '../schemas/news_tag.schema';
 
 @Injectable()
 export class NewsService {
