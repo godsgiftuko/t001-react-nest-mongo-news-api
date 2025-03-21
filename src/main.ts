@@ -4,11 +4,24 @@ import { Configs } from './configs';
 import { ValidationPipe } from '@nestjs/common';
 import cors from 'cors';
 
+const allowedOrigins = [
+  'https://t001-react-nest-mongo-news-app.vercel.app',
+  'http://localhost:5173',
+];
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(
     cors({
-      origin: 'https://t001-react-nest-mongo-news-app.vercel.app', // Replace with your actual Vercel domain
+      origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      credentials: true,
     }),
   );
   app.useGlobalPipes(new ValidationPipe());
