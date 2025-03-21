@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { News } from '../schemas/news.schema';
 import { CreateNewsDto } from './create_news.dto';
 import { NewsTag } from '../schemas/news_tag.schema';
+import { Pagination } from 'src/utils/pagination';
 
 @Injectable()
 export class NewsService {
@@ -22,7 +23,10 @@ export class NewsService {
       for (const tagId of createNewsDto.tagIds) {
         const tag = tagExist(tagId);
         if (!tag) {
-          throw new HttpException(`Invalid tag "${tagId}"`, HttpStatus.BAD_REQUEST);
+          throw new HttpException(
+            `Invalid tag "${tagId}"`,
+            HttpStatus.BAD_REQUEST,
+          );
         }
         tagsToAdd.push(tag);
       }
@@ -38,9 +42,12 @@ export class NewsService {
     }
   }
 
-  async fetchMany(): Promise<News[]> {
+  async fetchMany(pagination: Pagination): Promise<News[]> {
     try {
-      return await this.newsModel.find();
+      return await this.newsModel
+        .find()
+        .sort({ createdAt: pagination.order === 'DESC' ? -1 : 1 })
+        .limit(parseInt(pagination.limit || '10'));
     } catch (e) {
       throw e;
     }
@@ -67,7 +74,10 @@ export class NewsService {
     try {
       const news = await this.fetchById(id);
       if (!news) {
-        throw new HttpException('News is no longer available', HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          'News is no longer available',
+          HttpStatus.BAD_REQUEST,
+        );
       }
       news.likes = news.likes + 1;
       await this.newsModel.findByIdAndUpdate(id, {
@@ -85,7 +95,10 @@ export class NewsService {
     try {
       const news = await this.fetchById(id);
       if (!news) {
-        throw new HttpException('News is no longer available', HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          'News is no longer available',
+          HttpStatus.BAD_REQUEST,
+        );
       }
       news.dislikes = news.dislikes + 1;
       await this.newsModel.findByIdAndUpdate(id, {
@@ -103,7 +116,10 @@ export class NewsService {
     try {
       const news = await this.fetchById(id);
       if (!news) {
-        throw new HttpException('News is no longer available', HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          'News is no longer available',
+          HttpStatus.BAD_REQUEST,
+        );
       }
       news.views = news.views + 1;
       await this.newsModel.findByIdAndUpdate(id, {

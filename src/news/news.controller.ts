@@ -40,8 +40,8 @@ export class NewsController {
   }
 
   @Get()
-  getManyNews() {
-    return this.newsService.fetchMany();
+  getManyNews(@Query() pagination: Pagination) {
+    return this.newsService.fetchMany(pagination);
   }
 
   @Delete('/id/:id')
