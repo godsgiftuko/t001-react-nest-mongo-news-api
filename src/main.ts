@@ -11,19 +11,30 @@ const allowedOrigins = [
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.use(
-    cors({
-      origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-          callback(null, true);
-        } else {
-          callback(new Error('Not allowed by CORS'));
-        }
-      },
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-      credentials: true,
-    }),
-  );
+  // app.use(
+  //   cors({
+  //     origin: (origin, callback) => {
+  //       if (!origin || allowedOrigins.includes(origin)) {
+  //         callback(null, true);
+  //       } else {
+  //         callback(new Error('Not allowed by CORS'));
+  //       }
+  //     },
+  //     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  //     credentials: true,
+  //   }),
+  // );
+  app.enableCors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+    credentials: true,
+  });
   app.useGlobalPipes(new ValidationPipe());
   app.setGlobalPrefix('api');
   const PORT = Configs.SERVER_PORT;

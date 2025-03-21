@@ -27,7 +27,7 @@ export class NewsController {
     return this.newsService.create(createNewsDto);
   }
 
-  @Get('/:id')
+  @Get('/id/:id')
   getNewsById(
     @Param('id') id: string,
     @Query('countView', ParseBoolPipe) countView: boolean,
@@ -43,7 +43,7 @@ export class NewsController {
     return this.newsService.fetchMany();
   }
 
-  @Delete('/:id')
+  @Delete('/id/:id')
   delNewsById(@Param('id') id: string) {
     return this.newsService.delById(id);
   }
