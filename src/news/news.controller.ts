@@ -14,6 +14,7 @@ import { NewsService } from './news.service';
 import { CreateNewsDto } from './create_news.dto';
 import { CreateNewsTagDto } from './create_news_tag.dto';
 import { NewsTagService } from './news_tag.service';
+import { Pagination } from 'src/utils/pagination';
 
 @Controller('news')
 export class NewsController {
@@ -69,8 +70,8 @@ export class NewsController {
   }
 
   @Get('tags')
-  getManyNewsTag() {
-    return this.newsTagService.fetchMany();
+  getManyNewsTag(@Query() pagination: Pagination) {
+    return this.newsTagService.fetchMany(pagination);
   }
 
   @Delete('/tags/:id')

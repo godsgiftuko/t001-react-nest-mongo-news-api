@@ -4,7 +4,7 @@ import { INewsTag } from '../types';
 
 export type NewsTagDocument = HydratedDocument<NewsTag>;
 
-@Schema()
+@Schema({ timestamps: true })
 export class NewsTag implements INewsTag {
   @Prop()
   name: string;

@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { NewsTag } from '../schemas/news_tag.schema';
 import { CreateNewsTagDto } from './create_news_tag.dto';
+import { Pagination } from 'src/utils/pagination';
 
 @Injectable()
 export class NewsTagService {
@@ -24,9 +25,12 @@ export class NewsTagService {
     }
   }
 
-  async fetchMany(): Promise<NewsTag[]> {
+  async fetchMany(pagination: Pagination): Promise<NewsTag[]> {
     try {
-      return await this.newsTagModel.find();
+      return await this.newsTagModel
+        .find()
+        .sort({ createdAt: pagination.order === 'DESC' ? -1 : 1 })
+        .limit(parseInt(pagination.limit || '10'));
     } catch (e) {
       throw e;
     }

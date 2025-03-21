@@ -5,7 +5,7 @@ import { INews } from '../types';
 
 export type NewsDocument = HydratedDocument<News>;
 
-@Schema()
+@Schema({ timestamps: true })
 export class News implements INews {
   @Prop()
   title: string;
