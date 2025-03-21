@@ -12,6 +12,12 @@ export class NewsTagService {
 
   async create(createNewsTagDto: CreateNewsTagDto): Promise<NewsTag> {
     try {
+      const exist = await this.newsTagModel.findOne({
+        name: createNewsTagDto.name,
+      });
+      if (exist) {
+        throw new HttpException('Tag already exist', HttpStatus.CONFLICT);
+      }
       return await this.newsTagModel.create(createNewsTagDto);
     } catch (e) {
       throw e;
