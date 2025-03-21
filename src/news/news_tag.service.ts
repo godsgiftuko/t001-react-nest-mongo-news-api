@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { NewsTag } from '../schemas/news_tag.schema';
 import { CreateNewsTagDto } from './create_news_tag.dto';
-import { Pagination } from 'src/utils/pagination';
+import { Pagination } from '../utils/pagination';
 
 @Injectable()
 export class NewsTagService {

@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { News } from '../schemas/news.schema';
 import { CreateNewsDto } from './create_news.dto';
 import { NewsTag } from '../schemas/news_tag.schema';
-import { Pagination } from 'src/utils/pagination';
+import { Pagination } from '../utils/pagination';
 
 @Injectable()
 export class NewsService {

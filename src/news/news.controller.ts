@@ -14,7 +14,7 @@ import { NewsService } from './news.service';
 import { CreateNewsDto } from './create_news.dto';
 import { CreateNewsTagDto } from './create_news_tag.dto';
 import { NewsTagService } from './news_tag.service';
-import { Pagination } from 'src/utils/pagination';
+import { Pagination } from '../utils/pagination';
 
 @Controller('news')
 export class NewsController {
